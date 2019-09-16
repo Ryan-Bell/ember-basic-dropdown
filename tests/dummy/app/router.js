@@ -43,7 +43,6 @@ Router.map(function() {
   });
 
   this.route('scrolling-container');
-  this.route('helpers-testing');
 });
 
 export default Router;
