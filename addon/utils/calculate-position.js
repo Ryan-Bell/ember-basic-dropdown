@@ -36,11 +36,11 @@ export function calculateWormholedPosition(trigger, content, destination, { hori
   // Apply containers' offset
   let anchorElement = destination.parentNode;
   let anchorPosition = window.getComputedStyle(anchorElement).position;
-  while (anchorPosition !== 'relative' && anchorPosition !== 'absolute' && anchorElement.tagName.toUpperCase() !== 'BODY') {
+  while (anchorPosition !== 'relative' && anchorPosition !== 'absolute' && anchorPosition !== 'fixed' && anchorElement.tagName.toUpperCase() !== 'BODY') {
     anchorElement = anchorElement.parentNode;
     anchorPosition = window.getComputedStyle(anchorElement).position;
   }
-  if (anchorPosition === 'relative' || anchorPosition === 'absolute') {
+  if (anchorPosition === 'relative' || anchorPosition === 'absolute' || anchorPosition === 'fixed') {
     let rect = anchorElement.getBoundingClientRect();
     triggerLeft = triggerLeft - rect.left;
     triggerTop = triggerTop - rect.top;
@@ -49,6 +49,11 @@ export function calculateWormholedPosition(trigger, content, destination, { hori
       triggerLeft -= anchorElement.offsetParent.scrollLeft;
       triggerTop -= anchorElement.offsetParent.scrollTop;
     }
+  }
+  // scrolling won't affect fixed elements
+  if (anchorPosition === 'fixed') {
+    scroll.left = 0;
+    scroll.top = 0;
   }
 
   // Calculate drop down width

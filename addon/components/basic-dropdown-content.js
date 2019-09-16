@@ -216,7 +216,7 @@ export default @layout(templateLayout) @tagName('')class BasicDropdownContent ex
     let scrollableAncestors = [];
     if (triggerElement) {
       let nextScrollable = getScrollParent(triggerElement.parentNode);
-      while (nextScrollable && nextScrollable.tagName.toUpperCase() !== 'BODY' && nextScrollable.tagName.toUpperCase() !== 'HTML') {
+      while (nextScrollable && window.getComputedStyle(nextScrollable).position !== 'fixed' && nextScrollable.tagName.toUpperCase() !== 'BODY' && nextScrollable.tagName.toUpperCase() !== 'HTML') {
         scrollableAncestors.push(nextScrollable);
         nextScrollable = getScrollParent(nextScrollable.parentNode);
       }
